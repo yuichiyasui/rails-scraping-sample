@@ -1,9 +1,11 @@
+require 'open-uri'
+require 'nokogiri'
+
 class DocumentsController < ApplicationController
   def index
-    result = 'indexメソッドが呼ばれました！'
-    if params[:url] then
-      result = params[:url]
+    if params[:url]
+       doc = Nokogiri.HTML(open(params[:url]))
+       puts doc.xpath('//title')[0].text
     end
-    render json: { result: result}
   end
 end
